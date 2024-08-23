@@ -1,6 +1,10 @@
+import WebApp from "@twa-dev/sdk";
 import { createContext, useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Outlet, useLocation, useNavigate, } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { BackButton } from '@twa-dev/sdk/react';
+
+
 
 const queryClient = new QueryClient();
 
@@ -57,6 +61,8 @@ const allSigns = {
   }
 };
 
+
+
 interface AppContextData {
   lang: number;
   setLang: (value: number) => void;
@@ -89,8 +95,7 @@ function getToday(lang) {
 function App() {
 
   const location = useLocation()
-  const [lang, setLang] = useState(0);
-  const navigate = useNavigate();
+  const [lang, setLang] = useState(WebApp.initDataUnsafe.user?.language_code == 'ru' ? 1 : 0);
 
   const changeLang = () => {
     setLang((prev) => (prev + 1) % 2);
@@ -104,9 +109,8 @@ function App() {
             <p className="mr-auto">{getToday(langs[lang])}</p>
             {location.pathname == "/" ?
               <button className="" disabled></button> :
-              <button onMouseDown={() => navigate(-1)} className="border-slate-700 rounded-lg border-2 p-1 w-[40px] flex items-center justify-center aspect-square asdas ">
-                <img src="./arrow-left.svg" alt="arrow left" />
-              </button>
+              <BackButton onClick={() => window.history.back()} />
+
             }
             <button className="border-slate-700 rounded-lg border-2 p-1 w-[40px] flex items-center justify-center aspect-square" onMouseDown={changeLang}>{langs[lang]}</button>
           </header>
