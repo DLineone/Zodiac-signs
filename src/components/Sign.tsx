@@ -24,7 +24,6 @@ function Sign() {
         onSwipedRight: () => navigate(-1),
     });
 
-
     return (
         <>
             <div {...handlers} className="h-fit w-full p-5 flex items-center justify-center gap-5 flex-col self-stretch text-5xl">
