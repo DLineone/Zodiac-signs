@@ -65,6 +65,7 @@ const allSigns = {
 
 interface AppContextData {
   lang: number;
+  langs: [string];
   setLang: (value: number) => void;
   allSigns: object
 }
